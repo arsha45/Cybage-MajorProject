@@ -1,0 +1,26 @@
+.logo-instagram{
+    width: 12em;
+}
+
+login-form-control{
+    font-size: 13px;
+    border-radius: 0px;
+    width: 100%;
+
+}
+.login-form-control-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .4em;
+    width: 100%;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+
+:host ::ng-deep .p-button{
+    width:250px;
+    margin-top: 1.5em;
+}
