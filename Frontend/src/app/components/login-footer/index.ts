@@ -1,0 +1,1 @@
+export{ default as LoginFooterComponent} from './login-footer.component'
