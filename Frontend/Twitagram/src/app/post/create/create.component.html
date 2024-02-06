@@ -1,0 +1,37 @@
+<div class="create-form">
+    <h1>Create a Post</h1>
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" formControlName="title" placeholder="A catchy title...">
+        </div>
+
+        <div>
+            <label for="content">Content (max 120 characters):</label>
+            <textarea id="content" formControlName="content" rows="4" placeholder="Share a thought..."></textarea>
+            <div *ngIf="postForm.get('content')?.hasError('maxlength')">
+                Content exceeds the maximum allowed characters. (120 max)
+            </div>        
+        </div>
+
+        <div>
+            <button type="submit" [disabled]="postForm.invalid">Create Post</button>
+        </div>
+
+        </form>
+</div>
+
+
+
+
+
+<!-- Arsh Changes -->
+<!-- <form action="" class="create-post">
+    <div class="profile-photo">
+        <img src="../../../assets/images/profile-1.jpg" alt="">
+    </div>
+
+    <input type="text" placeholder="What's in your mind ?" id="create-post">
+    <input type="submit" value="Post" class="btn btn-primary">
+</form> -->
+

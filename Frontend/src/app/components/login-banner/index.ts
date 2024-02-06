@@ -1,1 +1,0 @@
-export {default as LoginBannerComponent} from './login-banner.component'

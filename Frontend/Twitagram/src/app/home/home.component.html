@@ -1,0 +1,110 @@
+<!-- <div class="home-container">
+    <h1>Welcome to TextScape</h1>
+    <p>
+        Share your texts, follow your friends, discover a new universe to "textscape" from the world!
+    </p>
+    <a routerLink = "/register">Sign Up</a> or <a routerLink = "/login">Login</a> to get started!
+</div> -->
+
+<main>
+  <div class="container">
+    <div class="left">
+      <a href="" class="profile">
+        <div class="profile-photo">
+          <img src="../../assets/images/profile-1.jpg" alt="" />
+        </div>
+        <div class="handle">
+          <h4>Arsh Ansari</h4>
+          <p class="text-muted"></p>
+        </div>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <a
+          href=""
+          class="menu-item active"
+          routerLink="/posts/feed"
+          routerLinkActive="active"
+        >
+          <span><i class="fa-solid fa-house"></i></span>
+          <h3>Feed</h3>
+        </a>
+
+        <a
+          href=""
+          class="menu-item"
+          routerLink="/users/:username/feed"
+          routerLinkActive="active"
+        >
+          <span><i class="fa-solid fa-house"></i></span>
+          <h3>Following</h3>
+        </a>
+
+        
+
+        <a
+          href=""
+          class="menu-item"
+          routerLink="/home"
+          routerLinkActive="active"
+        >
+          <span><i class="fa-solid fa-house"></i></span>
+          <h3>Home</h3>
+        </a>
+
+        <a
+          href=""
+          class="menu-item"
+          *ngIf="!authService.isLoggedIn()"
+          routerLink="/login"
+          routerLinkActive="active"
+        >
+          <span><i class="fa-solid fa-house"></i></span>
+          <h3>Login</h3>
+        </a>
+
+        <a
+          href=""
+          class="menu-item"
+          *ngIf="!authService.isLoggedIn()"
+          routerLink="/register"
+          routerLinkActive="active"
+        >
+          <span><i class="fa-solid fa-house"></i></span>
+          <h3>Register</h3>
+        </a>
+
+        <a
+          href=""
+          class="menu-item active"
+          *ngIf="authService.isLoggedIn()"
+          (click)="authService.logOut()"
+          style="cursor: pointer"
+        >
+          <span><i class="fa-solid fa-house"></i></span>
+          <h3>Logout</h3>
+        </a>
+      </div>
+
+      <!-- Create post button -->
+      <label for="create-post" class="btn btn-primary"  routerLink="/posts/create"
+          routerLinkActive="active">Create-Post</label>
+    </div>
+    <div class="Middle">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="Right">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate esse
+      quidem id sint ut, qui deserunt rerum. Unde quod, aspernatur fugit a ex
+      iure. Ducimus fugiat, voluptates pariatur eos animi at modi ipsum ex
+      maxime nulla voluptatem id sapiente repellendus hic error dicta nobis eius
+      enim. Maiores, voluptas voluptate? Explicabo dolore, inventore ad incidunt
+      doloremque accusantium, assumenda natus, deleniti et molestias pariatur
+      iure tempore rem sunt. Consectetur distinctio rem aliquid, quidem quia ut
+      nisi et tempora aperiam voluptates error ducimus consequatur in fuga
+      tempore dolor magnam incidunt explicabo cumque obcaecati. Neque quasi
+      dolores quam quia harum doloremque minus excepturi nesciunt.
+    </div>
+  </div>
+</main>
