@@ -22,9 +22,9 @@ export class LoginComponent {
         console.log(data);
         localStorage.setItem('token', data.access);
         localStorage.setItem('username', data.username);
-        this.toastr.success('Login Successful - Redirecting to Home!');
-        // alert('Login Successful - Redirecting to Home!');
-        this.router.navigate(['/home']);
+        // this.toastr.success('Login Successful - Redirecting to feed!');
+        alert('Login Successful - Redirecting to feed!');
+        this.router.navigate(['/posts/feed']);
       },
       (error: any) => console.error(error)
     );
