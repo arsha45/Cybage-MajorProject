@@ -170,4 +170,10 @@ img{
     color: var(--color-gray);
 }
 
+.invalid-input{
+    color: red;
+    font-size: 10px;
+    margin-top: -5px;
+}
+
 
