@@ -1,0 +1,173 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'node_modules/ngx-toastr/toastr.css';
+
+
+/* :root {
+    --color-50: #ecfdf5;
+    --color-100: #d1fae5;
+    --color-200: #a7f3d0;
+    --color-300: #6ee7b7;
+    --color-400: #34d399;
+    --color-500: #10b981;
+    --color-600: #059669;
+    --color-700: #047857;
+    --color-800: #065f46;
+    --color-900: #064e3b;
+    --color-950: #022c22;
+    background-color: var(--color-50);
+    font-family: 'Roboto', sans-serif;
+  } */
+
+/* html {
+    position: relative;
+    height: 100%;
+    
+} */
+
+/* body {
+    margin: 0;
+    position: relative;
+    min-height: 100%;
+    background: transparent;
+} */
+
+/* body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('assets/green_gradient_bg.png') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(5px);
+    z-index: -1;
+} */
+
+
+/* nav {
+    background-color: var(--color-900);
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+} */
+
+/* nav a {
+    float: left;
+    color: var(--color-100);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    align-self: center;
+} */
+
+/* nav a:hover {
+    background-color: var(--color-800);
+    color: var(--color-950);
+    transition: all 0.5s ease;
+}
+
+nav a.active {
+    background-color: var(--color-950);
+    color: var(--color-50);
+} */
+
+/* .logo a {
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: var(--color-200);
+    transition:all 0.5s ease;
+} */
+
+
+/* YT applied CSS by Arsh */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+:root{
+    --color-white: hsl(252,30%,100%);
+    --color-light: hsl(252,30%,95%);
+    --color-gray: hsl(252,15%,65%);
+    --color-primary: hsl(252,75%,60%);
+    --color-secondary: hsl(252,100%,90%);
+    --color-success: hsl(120,95%,65%);
+    --color-danger: hsl(0,95%,65%);
+    --color-black: hsl(252,30%,10%);
+    --color-dark:hsl(252,30%,17%);
+    --teritiary: rgb(91, 114, 126);
+    --image: rgb(203, 148, 128);
+
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem;
+
+}
+
+body{
+    font-family:"Poppins", sans-serif ;
+    color: var(--color-dark);
+    background: var(--color-light);
+    overflow-x: hidden;
+}
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.profile-photo{
+    width: 2.7rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+img{
+    width:100%;
+    display: block;
+}
+.btn{
+    display: inline-block;
+    padding: var(--btn-padding);
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: 0.9rem;
+}
+.btn:hover{
+    opacity: 0.8;
+}
+.btn-primary{
+    background: var(--color-primary);
+    color:white;
+}
+.text-bold{
+    font-weight: 500;
+}
+.text-muted{
+    color: var(--color-gray);
+}
+
+
