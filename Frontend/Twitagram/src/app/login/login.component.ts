@@ -28,7 +28,10 @@ export class LoginComponent {
       },
       (error: any) => console.error(error)
     );
+
+    
   };
+  passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z]).{5,20}$/;
 
   
 }
