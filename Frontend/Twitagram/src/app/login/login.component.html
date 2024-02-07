@@ -19,7 +19,7 @@
     </div> -->
 
 
-    <div class="login-container">
+    <!-- <div class="login-container">
         <h3>Login</h3>
         <form (submit)="onLogin()" #loginForm="ngForm">
             <input type="text"
@@ -55,5 +55,53 @@
     
             <button [disabled]="loginForm.invalid" type="submit">Login</button>
         </form>
-    </div>
+    </div> -->
     
+
+
+    <div class="wrapper">
+        <h2>Login</h2>
+        <form action="#" (submit)="onLogin()" #loginForm="ngForm" >
+          <div class="input-box">
+            <input type="text"
+            [(ngModel)]="user.username"
+            name="username"
+            placeholder="Enter your Username"
+            ngModel
+            #username="ngModel"
+            minlength="4"
+            maxlength="10"
+            required>
+          </div>
+
+          <p class="invalid-input">
+            <span *ngIf="username.invalid && (username.touched || loginForm.submitted)">Please enter a valid Username</span>
+        </p>
+          
+          <div class="input-box">
+            <input type="password"
+            [(ngModel)]="user.password"
+            name="password"
+            placeholder="Enter your Password"
+            ngModel
+            #password="ngModel"
+            [pattern]="passwordPattern"
+            minlength="5"
+            maxlength="20"
+            required>
+          </div>
+
+          <p class="invalid-input">
+            <span *ngIf="password.invalid && (password.touched || loginForm.submitted)">
+                Password: 1 num, 1 special char, 1 uppercase, 5-20 characters.
+            </span>
+        </p>
+          
+          
+            <input [disabled]="loginForm.invalid" type="Submit" value="Login" class="btn btn-primary">
+          
+          <div class="text">
+            <h3>Did'nt have an account <a href="#">Signup</a></h3>
+          </div>
+        </form>
+      </div>
