@@ -37,5 +37,9 @@ export class RegisterComponent {
         }
       }
     );
+    
   }
+  emailPattern="[a-zA-Z0-9._%+-]+@\.gmail\.com"
+  passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z]).{5,20}$/;
+
 }

@@ -2,21 +2,84 @@
 
     <div class="wrapper">
         <h2>Registration</h2>
-        <form action="#" (submit)="onsubmit()" >
+        <form action="#" (submit)="onsubmit()" #registerForm="ngForm">
+
           <div class="input-box">
-            <input type="text" [(ngModel)]="user.username" name="username" placeholder="Enter your username" required>
+            <input type="text"
+             [(ngModel)]="user.username"
+            name="username" 
+            placeholder="Enter your username" 
+            ngModel
+            #username="ngModel"
+            minlength="4"
+            maxlength="10"
+            required>
           </div>
+
+        <p class="invalid-input">
+            <span *ngIf="username.invalid && (username.touched || registerForm.submitted)">Please enter a valid Username</span>
+        </p>
+
           <div class="input-box">
-            <input type="text" [(ngModel)]="user.email" name="email" placeholder="Enter your email" required>
+            <input type="text"
+             [(ngModel)]="user.email"
+              name="email" 
+              placeholder="Enter your email"
+              ngModel
+              #password="ngModel"
+              [pattern]="emailPattern"
+              minlength="5"
+              maxlength="20"
+              required>
           </div>
+
+          <p class="invalid-input">
+            <span *ngIf="password.invalid && (password.touched || registerForm.submitted)">
+                Email: 1-num, 1-special char, 1-uppercase, 5-20 characters, gamil.com.
+            </span>
+        </p>
+
+
+
           <div class="input-box">
-            <input type="password" [(ngModel)]="user.password" name="password" placeholder="Create password" required>
+            <input type="password" 
+            [(ngModel)]="user.password" 
+            name="password" 
+            placeholder="Create password" 
+            ngModel
+            #password="ngModel"
+            [pattern]="passwordPattern"
+            minlength="5"
+            maxlength="20"
+            required>
           </div>
+
+          <p class="invalid-input">
+            <span *ngIf="password.invalid && (password.touched || registerForm.submitted)">
+                Password: 1-num, 1-special char, 1-uppercase, 5-20 characters.
+            </span>
+        </p>
+
           <div class="input-box">
-            <input type="password" [(ngModel)]="user.password2" name="password_confirmation"  placeholder="Confirm password" required>
+            <input type="password" 
+            [(ngModel)]="user.password2" 
+            name="password_confirmation"  
+            placeholder="Confirm password" 
+            ngModel
+            #passwordConfirmation="ngModel"
+            [pattern]="passwordPattern" 
+            minlength="5"
+            maxlength="20"
+            required>
           </div>
+
+          <p class="invalid-input">
+            <span *ngIf="(passwordConfirmation.invalid || user.password !== user.password2) && (passwordConfirmation.touched || registerForm.submitted)">
+                Passwords do not match.
+            </span>
+        </p>
           
-            <input type="Submit" value="Register Now" class="btn btn-primary">
+            <input [disabled]="registerForm.invalid" type="Submit" value="Register Now" class="btn btn-primary">
           
           <div class="text">
             <h3>Already have an account? <a href="#">Login now</a></h3>
