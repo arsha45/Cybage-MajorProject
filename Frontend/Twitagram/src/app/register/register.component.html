@@ -1,18 +1,25 @@
-<div class="register-container">
-<h2>Sign Up</h2>
-    <p></p>
-    <form (submit)="onsubmit()">
 
-        <input type="text" 
-        [(ngModel)]="user.username" 
-        name="username" 
-        placeholder="Username" 
-        required>
 
-        <input type="email" 
-        [(ngModel)]="user.email" name="email" placeholder="Email" required><br>
-        <input type="password" [(ngModel)]="user.password" name="password" placeholder="Password" required>
-        <input type="password" [(ngModel)]="user.password2" name="password_confirmation" placeholder="Confirm Password" required>
-        <button type="submit" value="Register">Register</button>
-    </form>
-    </div>
+    <div class="wrapper">
+        <h2>Registration</h2>
+        <form action="#" (submit)="onsubmit()" >
+          <div class="input-box">
+            <input type="text" [(ngModel)]="user.username" name="username" placeholder="Enter your username" required>
+          </div>
+          <div class="input-box">
+            <input type="text" [(ngModel)]="user.email" name="email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-box">
+            <input type="password" [(ngModel)]="user.password" name="password" placeholder="Create password" required>
+          </div>
+          <div class="input-box">
+            <input type="password" [(ngModel)]="user.password2" name="password_confirmation"  placeholder="Confirm password" required>
+          </div>
+          
+            <input type="Submit" value="Register Now" class="btn btn-primary">
+          
+          <div class="text">
+            <h3>Already have an account? <a href="#">Login now</a></h3>
+          </div>
+        </form>
+      </div>
