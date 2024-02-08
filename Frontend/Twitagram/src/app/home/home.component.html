@@ -8,7 +8,7 @@
 
 <main>
   <div class="container">
-    <div class="left" *ngIf="authService.isLoggedIn()">
+    <div class="left" >
       <a href="" class="profile">
         <div class="profile-photo">
           <img src="../../assets/images/profile-1.jpg" alt="" />
@@ -26,6 +26,7 @@
           class="menu-item active"
           routerLink="/posts/feed"
           routerLinkActive="active"
+          *ngIf="authService.isLoggedIn()"
         >
           <span><i class="fa-solid fa-house"></i></span>
           <h3>Feed</h3>
@@ -36,22 +37,12 @@
           class="menu-item"
           routerLink="/users/:username/feed"
           routerLinkActive="active"
+          *ngIf="authService.isLoggedIn()"
         >
           <span><i class="fa-solid fa-house"></i></span>
           <h3>Following</h3>
         </a>
 
-        
-
-        <a
-          href=""
-          class="menu-item"
-          routerLink="/home"
-          routerLinkActive="active"
-        >
-          <span><i class="fa-solid fa-house"></i></span>
-          <h3>Home</h3>
-        </a>
 
         <a
           href=""
@@ -89,22 +80,32 @@
 
       <!-- Create post button -->
       <label for="create-post" class="btn btn-primary"  routerLink="/posts/create"
-          routerLinkActive="active">Create-Post</label>
+          routerLinkActive="active" *ngIf="authService.isLoggedIn()">Create-Post</label>
     </div>
     <div class="Middle">
         <router-outlet></router-outlet>
     </div>
-    <div class="Right" *ngIf="authService.isLoggedIn()">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate esse
-      quidem id sint ut, qui deserunt rerum. Unde quod, aspernatur fugit a ex
-      iure. Ducimus fugiat, voluptates pariatur eos animi at modi ipsum ex
-      maxime nulla voluptatem id sapiente repellendus hic error dicta nobis eius
-      enim. Maiores, voluptas voluptate? Explicabo dolore, inventore ad incidunt
-      doloremque accusantium, assumenda natus, deleniti et molestias pariatur
-      iure tempore rem sunt. Consectetur distinctio rem aliquid, quidem quia ut
-      nisi et tempora aperiam voluptates error ducimus consequatur in fuga
-      tempore dolor magnam incidunt explicabo cumque obcaecati. Neque quasi
-      dolores quam quia harum doloremque minus excepturi nesciunt.
+    <div class="right" *ngIf="authService.isLoggedIn()">
+      <div class="friend-requests">
+        <h4>Requests</h4>
+        <div class="request">
+          <div class="info">
+            <div class="profile-photo">
+              <img src="../../assets/images/profile-13.jpg" alt="">
+            </div>
+            <div>
+              <h5>Arsh Ansari</h5>
+              <p class="text-muted">8 mutual friends</p>
+              
+            </div>
+
+          </div>
+          <div class="action">
+            <button class="btn btn-primary">Accept</button>
+            <button class="btn ">Reject</button>
+          </div>
+        </div>
+    </div>
     </div>
   </div>
 </main>
