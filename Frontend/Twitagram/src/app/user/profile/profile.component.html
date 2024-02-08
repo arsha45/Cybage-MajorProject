@@ -1,30 +1,63 @@
-<div class="profile-container">
-<ng-container *ngIf="!isEditing; else editProfile">
-<img src="{{ userProfile.profile_picture }}" alt="Profile Picture" />
-<h3>{{ userProfile.username }}</h3>
-<p>E-mail: {{ userProfile.email }}</p>
-<p>Birthdate: {{ userProfile.birthdate  }}</p>
-<p>Bio: {{ userProfile.bio }}</p>
-</ng-container>
-
-<ng-template #editProfile>
-    <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
-        <img [src]="userProfileForm.get('profile_picture')?.value || 'assets/default-1.png'" alt="Profile Picture" />
-        <!-- <input type="file" formControlName="profile_picture" accept="image/*" /> -->
-
-        <h3> {{ userProfileForm.get('username')?.value }}</h3>
-        <p>E-mail: {{ userProfileForm.get('email')?.value }}</p>
-
-        <input type="date" formControlName="birthdate" />
-        <textarea formControlName="bio" placeholder="Bio"></textarea>
-        <button type="submit">Save Changes</button>
-        <button (click)="toggleEditMode()">Cancel</button>
-    </form>
-    </ng-template>
-
-<button *ngIf="userProfile?.username === currentUser?.username && !isEditing" (click)="toggleEditMode()">Edit Profile</button>
-
-
-<p>Date Joined: {{ userProfile.date_joined | date: 'mediumDate'}}</p>
-</div>
-
+<div class="card-container">
+    <ng-container *ngIf="!isEditing; else editProfile">
+      <div class="upper-container">
+        <div class="image-container">
+          <img src="../../../assets/images/profile-1.jpg" alt="Profile Picture" />
+        </div>
+      </div>
+  
+      <div class="lower-container">
+        <div>
+          <h3>{{ userProfile.username }}</h3>
+          <h4>{{ userProfile.bio }}</h4>
+        </div>
+        <div>
+          <p>E-mail: {{ userProfile.email }}</p>
+          <p>Birthdate: {{ userProfile.birthdate }}</p>
+        </div>
+      </div>
+    </ng-container>
+  
+    <div class="card-container">
+  
+        <ng-template #editProfile>
+          <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
+              <div class="upper-container">
+                  <div class="image-container">
+                      <img
+                        [src]="
+                          userProfileForm.get('profile_picture')?.value ||
+                          'assets/default-1.png'
+                        "
+                        alt="Profile Picture"
+                      />
+                  </div>
+              </div>
+              <div class="lower-container">
+  
+                  <h3>{{ userProfileForm.get("username")?.value }}</h3>
+                  <p>E-mail: {{ userProfileForm.get("email")?.value }}</p>
+  
+                  
+                  <div class="search-bar">
+                      <input type="date" formControlName="birthdate" />
+                      <textarea formControlName="bio" placeholder="Enter Bio" cols="40" rows="5"></textarea>
+                  </div>
+                  <button class="btn btn-primary"  type="submit">Save Changes</button>
+                  <button class="btn btn-primary" (click)="toggleEditMode()">Cancel</button>
+              </div>
+      
+          </form>
+        </ng-template>
+    </div>
+  <div class="lower-container">
+      <div>
+        <button class="btn"
+        (click)="toggleEditMode()">Edit Profile</button>
+      </div>
+      <p>Date Joined: {{ userProfile.date_joined | date : "mediumDate" }}</p>
+  </div>
+  
+  </div>
+  
+  
