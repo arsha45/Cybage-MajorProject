@@ -16,6 +16,7 @@ input {
     width: 100%;
     max-width: 300px;
     transition: all 0.2s ease-in-out;
+    margin-left:70px;
 }
 
 button {
@@ -35,9 +36,6 @@ button:hover {
 }
 
 
-
-
-
 /*  */
 
 .wrapper{
@@ -53,6 +51,7 @@ button:hover {
     font-size: 22px;
     font-weight: 600;
     color: #333;
+    margin-left: 175px;
   }
   .wrapper h2::before{
     content: '';
@@ -111,6 +110,7 @@ button:hover {
    color: #333;
    width: 100%;
    text-align: center;
+   margin: inherit;
   }
   form .text h3 a{
     color: var(--color-primary);

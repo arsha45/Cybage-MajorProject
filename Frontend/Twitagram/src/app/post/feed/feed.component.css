@@ -107,7 +107,7 @@
     gap: 5px;
     padding: 5px;
     margin: 5px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
     background-color: var(--color-100);
     
@@ -208,6 +208,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid rgb(172 172 172);
+    border-radius: 7px;
   }
   .content span {
     color: rgb(6, 166, 250);
