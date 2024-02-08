@@ -29,7 +29,9 @@
           routerLinkActive="active"
           *ngIf="authService.isLoggedIn()"
         >
-          <span><i class="fa-solid fa-house"></i></span>
+          <!-- <span><i class="fa fa-credit-card"></i></span> -->
+          <!-- <span><i class="fa fa-film"></i></span> -->
+          <span><i class="fa fa-pencil"></i></span>
           <h3>Feed</h3>
         </a>
 
@@ -40,7 +42,7 @@
           routerLinkActive="active"
           *ngIf="authService.isLoggedIn()"
         >
-          <span><i class="fa-solid fa-house"></i></span>
+          <span><i class="fa fa-users"></i></span>
           <h3>Following</h3>
         </a>
 
@@ -50,9 +52,9 @@
           class="menu-item"
           *ngIf="!authService.isLoggedIn()"
           routerLink="/login"
-          routerLinkActive="active"
+          
         >
-          <span><i class="fa-solid fa-house"></i></span>
+          <span><i class="fa fa-sign-in"></i></span>
           <h3>Login</h3>
         </a>
 
@@ -61,20 +63,20 @@
           class="menu-item"
           *ngIf="!authService.isLoggedIn()"
           routerLink="/register"
-          routerLinkActive="active"
+          
         >
-          <span><i class="fa-solid fa-house"></i></span>
+          <span><i class="fa fa-user-plus"></i></span>
           <h3>Register</h3>
         </a>
 
         <a
           href=""
-          class="menu-item active"
+          class="menu-item"
           *ngIf="authService.isLoggedIn()"
           (click)="authService.logOut()"
           style="cursor: pointer"
         >
-          <span><i class="fa-solid fa-house"></i></span>
+          <span><i class="fa fa-sign-out"></i></span>
           <h3>Logout</h3>
         </a>
       </div>
