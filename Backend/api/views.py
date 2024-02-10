@@ -5,13 +5,16 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
-
+from rest_framework.generics import ListAPIView
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
-
-from .models import Post, Like, Comment, Follower
-from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer, UserProfileSerializer
-
+from django.db import transaction, IntegrityError
+from django.db.models import Q 
+from rest_framework.exceptions import ValidationError
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.views import APIView
+from .models import Post, Like, Comment, Follower, FriendRequest, Friend, CustomUser
+from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer, UserProfileSerializer, AllUsersSerializer,FriendRequestSerializer, FriendSerializer
 
 User = get_user_model()
 
@@ -94,7 +97,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['GET'], url_path='liked', url_name='user_liked_posts')
     def user_liked_posts(self, request, *args, **kwargs):
         user = self.get_object()
-        posts = Post.objects.filter(likes__user=user)
+        posts = Post.objects.filter(like__user=user)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -187,11 +190,169 @@ class PostViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # optional method to get nested comments
-    # @action(detail=True, methods=['GET'], url_path='comment/(?P<comment_id>\d+)', url_name='nested_comments')
-    # def nested_comments(self, request, pk=None, comment_id=None):
-    #     parent_comment = Comment.objects.get(id=comment_id)
-    #     nested_comments = Comment.objects.filter(parent_comment=parent_comment)
-    #     serializer = CommentSerializer(nested_comments, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
+class AllUsersView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = AllUsersSerializer
 
+    def get_queryset(self):
+        # Retrieve the logged-in user
+        logged_in_user = self.request.user
+
+        # Get all users except the logged-in user and superuser
+        queryset = CustomUser.objects.exclude(id=logged_in_user.id).exclude(is_superuser=True)
+
+        # Filter out users who are friends of the logged-in user
+        friends = logged_in_user.friends.all()
+        queryset = queryset.exclude(id__in=[friend.friend.id for friend in friends])
+
+        return queryset
+
+class FriendRequestListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = FriendRequestSerializer
+
+    def get_queryset(self):
+        # Filter friend requests based on the current user and pending status
+        current_user = self.request.user
+        return FriendRequest.objects.filter(to_user=current_user, status='pending')
+
+    def create(self, request, *args, **kwargs):
+        from_user_id = request.data.get('from_user_id')
+        to_user_id = request.user.id
+
+        # Check if a friend request already exists between the sender and the recipient
+        existing_request = FriendRequest.objects.filter(from_user_id=from_user_id, to_user_id=to_user_id).exists()
+        if existing_request:
+            return Response({'error': 'Friend request already sent'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Proceed with creating the friend request if it doesn't already exist
+        return super().create(request, *args, **kwargs)
+
+class FriendRequestRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FriendRequest.objects.all()
+    serializer_class = FriendRequestSerializer
+
+class FriendListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Friend.objects.all()
+    serializer_class = FriendSerializer
+
+class FriendRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Friend.objects.all()
+    serializer_class = FriendSerializer
+
+class PendingFriendRequestListAPIView(ListAPIView):
+    serializer_class = FriendRequestSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        current_user = self.request.user
+        return FriendRequest.objects.filter(to_user=current_user, status='pending')
+
+class FriendListAPIView(generics.ListAPIView):
+    serializer_class = FriendSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        # Retrieve all friends of the logged-in user
+        return Friend.objects.filter(user=user)
+
+class AcceptFriendRequest(APIView):
+    def post(self, request):
+        from_user_id = request.data.get('from_user_id')
+        current_user = request.user
+
+        # Retrieve the pending friend request with the specified criteria
+        friend_requests = FriendRequest.objects.filter(
+            from_user_id=from_user_id, 
+            to_user=current_user, 
+            status='pending'
+        )
+
+        if not friend_requests.exists():
+            return Response({'error': 'Friend request does not exist or has already been accepted'}, status=status.HTTP_404_NOT_FOUND)
+
+        if friend_requests.count() > 1:
+            return Response({'error': 'Multiple pending friend requests found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        # Only one friend request found
+        friend_request = friend_requests.first()
+
+        # Check if the users are already friends
+        if Friend.objects.filter(user=current_user, friend=friend_request.from_user).exists():
+            return Response({'error': 'Users are already friends'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create friend relationships for both users
+        try:
+            with transaction.atomic():
+                # For the user accepting the request
+                friend_instance = Friend.objects.create(user=current_user, friend=friend_request.from_user)
+                
+                # For the user who sent the request
+                reverse_friend_instance = Friend.objects.create(user=friend_request.from_user, friend=current_user)
+
+                # Update friend request status and accept the request
+                friend_request.status = 'accepted'
+                friend_request.save()
+
+                # Optionally, you can update the friend lists of the users here if needed
+
+        except IntegrityError:
+            return Response({'error': 'Failed to create friend relationship'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        # Serialize the friend data and return response
+        serializer = FriendSerializer(friend_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class RejectFriendRequest(APIView):
+    def post(self, request):
+        from_user_id = request.data.get('from_user_id')
+        current_user = request.user
+
+        # Retrieve the pending friend request with the specified criteria
+        friend_requests = FriendRequest.objects.filter(
+            from_user_id=from_user_id, 
+            to_user=current_user, 
+            status='pending'
+        )
+
+        if not friend_requests.exists():
+            return Response({'error': 'Friend request does not exist or has already been rejected'}, status=status.HTTP_404_NOT_FOUND)
+
+        if friend_requests.count() > 1:
+            return Response({'error': 'Multiple pending friend requests found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        # Only one friend request found
+        friend_request = friend_requests.first()
+
+        # Update friend request status to 'rejected'
+        friend_request.status = 'rejected'
+        friend_request.save()
+
+        return Response({'message': 'Friend request rejected successfully'}, status=status.HTTP_200_OK)
+
+class UnfriendAPIView(APIView):
+    def post(self, request):
+        friend_username = request.data.get('friend_username')
+        current_user = request.user
+
+        try:
+            # Retrieve the friend's user object
+            friend_user = User.objects.get(username=friend_username)
+        except User.DoesNotExist:
+            raise ValidationError("Friend with the provided username does not exist")
+
+        # Check if there is a friend relationship between the current user and the friend
+        try:
+            friend_relationship = Friend.objects.get(user=current_user, friend=friend_user)
+        except Friend.DoesNotExist:
+            raise ValidationError("You are not friends with the specified user")
+
+        # Delete the friend relationship
+        friend_relationship.delete()
+
+        # Also delete any related friend requests
+        FriendRequest.objects.filter(
+            Q(from_user=current_user, to_user=friend_user) | Q(from_user=friend_user, to_user=current_user)
+        ).delete()
+
+        return Response({'message': 'Friend unfriended successfully'}, status=status.HTTP_200_OK)
