@@ -50,11 +50,7 @@
 </div>  -->
 
 <!-- Feed Section -->
-<div
-  style="margin-bottom: 1rem"
-  class=""
-  *ngFor="let post of posts.slice().reverse()"
->
+<div style="margin-bottom: 1rem" class="" *ngFor="let post of posts.slice().reverse()">
   <div class="center">
     <!-- <input type="checkbox" name="" id="toggle" /> -->
     <!-- <label for="toggle"></label> -->
@@ -64,19 +60,14 @@
         <div class="name">
           <div class="username">
             <p>
-              <a routerLink="/users/{{ post.user }}/profile"
-                ><strong>{{ post.user }}:</strong></a
-              >
+              <a ><strong>{{ post.user }}:</strong></a>
             </p>
             <!-- {{post.user}} -->
           </div>
         </div>
 
-        <span
-          class="material-symbols-outlined follow-btn"
-          *ngIf="post.user !== authService.getUser().username"
-          (click)="followOrUnfollowUser(post.user)"
-        >
+        <span class="material-symbols-outlined follow-btn" *ngIf="post.user !== authService.getUser().username"
+          (click)="followOrUnfollowUser(post.user)">
           {{ isFollowing(post.user) ? "person_off" : "person_add" }}
         </span>
       </div>
@@ -90,16 +81,8 @@
 
           <div class="date">{{ post.date_posted | date : "mediumDate" }}</div>
           <div class="editDeleteBtn">
-            <a
-              [routerLink]="['edit', post.id]"
-              *ngIf="post.user === authService.getUser().username"
-              >Edit</a
-            >
-            <a
-              (click)="deletePost(post)"
-              *ngIf="post.user === authService.getUser().username"
-              >Delete</a
-            >
+            <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
+            <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</a>
           </div>
         </div>
       </div>
@@ -114,29 +97,20 @@
         </div>
       </div>
       <div class="create-post">
-        <input
-          type="text"
-          placeholder="Add a Comment!!"
-          [(ngModel)]="post.newComment"
-        />
-        <input
-          type="submit"
-          value="Comment"
-          class="btn btn-primary"
-          (click)="addComment(post)"
-        />
+        <input type="text" placeholder="Add a Comment!!" [(ngModel)]="post.newComment" />
+        <input type="submit" value="Comment" class="btn btn-primary" (click)="addComment(post)" />
       </div>
 
-      <div class ="controls">
+      <div class="controls">
         <div class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
-            heart_plus
+          heart_plus
         </div>
         {{ post.likes_count}}
 
         <div class="btn">
-            <i class="fa-solid fa-arrow-up-from-bracket"></i>
-          </div>
-    </div>
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </div>
+      </div>
 
       <!-- <div class="controls">
         <div class="btn">

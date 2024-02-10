@@ -20,17 +20,20 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
+    console.log("Load user constructor");
     this.loadUsers();
   }
 
+  
+
   loadUsers(): void {
     this.isLoading = true;
+    
     this.userService.getUsers().subscribe(
       (data: any) => {
-        // Set requestSent property based on the users for which request has already been sent
         this.users = data.results.map((user: any) => ({
           ...user,
-          requestSent: false // Initially, assume request is not sent
+          requestSent: false 
         }));
         this.isLoading = false;
       },
@@ -48,16 +51,14 @@ export class HomeComponent {
         (response: any) => {
           console.log('Friend request sent successfully', response);
           alert(`Friend request has been send`)
-          this.users[userIndex].requestSent = true; // Update requestSent property
+          this.users[userIndex].requestSent = true; 
         },
         (error: any) => {
           console.error('Error sending friend request', error);
-          // Handle error
         }
       );
     } else {
       console.log('Friend request already sent or invalid user');
-      // Show an alert or handle the scenario where the request has already been sent
     }
   }
 }
