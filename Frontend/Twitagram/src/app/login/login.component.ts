@@ -27,20 +27,24 @@ export class LoginComponent {
         localStorage.setItem('token', data.access);
         localStorage.setItem('username', data.username);
 
-        this.apiService.getUserProfile(data.username).subscribe((data:any) => {
+        this.apiService.getUserProfile(data.username).subscribe((data: any) => {
           console.log("User id : " + JSON.stringify(data.id));
-            localStorage.setItem('currentUserId', JSON.stringify(data.id));
-      
-          })
+          localStorage.setItem('currentUserId', JSON.stringify(data.id));
+
+        })
 
         this.toastr.success('Login Successful - Redirecting to feed!');
-        alert('Login Successful - Redirecting to feed!');
         this.router.navigate(['/posts/feed']);
+        
       },
-      (error: any) => console.error(error)
-    );
+      (error: any) => {
+        console.error(error);
+        this.toastr.error('Login Failed !');
+        this.user.username = '';
+        this.user.password = '';
+      });
 
-    
+
   };
 
 }
