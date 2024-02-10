@@ -15,7 +15,7 @@
           <img src="../../assets/images/profile-1.jpg" alt="" />
         </div>
         <div class="handle">
-          <h4>Arsh Ansari</h4>
+          <h4>{{currentUserName}}</h4>
           <p class="text-muted"></p>
         </div>
       </a>
@@ -33,6 +33,18 @@
           *ngIf="authService.isLoggedIn()">
           <span><i class="fa fa-users"></i></span>
           <h3>Following</h3>
+        </a>
+
+        <a class="menu-item" routerLink="/friends" routerLinkActive="active"
+          *ngIf="authService.isLoggedIn()">
+          <span><i class="fa fa-users"></i></span>
+          <h3>Friend Requests</h3>
+        </a>
+
+        <a class="menu-item" routerLink="/friend-list" routerLinkActive="active"
+          *ngIf="authService.isLoggedIn()">
+          <span><i class="fa fa-users"></i></span>
+          <h3>Friend-list</h3>
         </a>
 
 
@@ -61,22 +73,24 @@
     </div>
     <div class="right" *ngIf="authService.isLoggedIn()">
       <div class="friend-requests">
-        <h4>Requests</h4>
-        <div class="request">
+        <h4>Suggestions</h4>
+        <div class="request" *ngFor="let user of users">
           <div class="info">
             <div class="profile-photo">
-              <img src="../../assets/images/profile-13.jpg" alt="">
+              <img src="../../assets/images/profile-{{ user.id }}.jpg" alt="">
             </div>
             <div>
-              <h5>Arsh Ansari</h5>
-              <p class="text-muted">8 mutual friends</p>
+              <h5>{{ user.username }}</h5>
+              <!-- <p class="text-muted">8 mutual friends</p> -->
 
             </div>
 
           </div>
           <div class="action">
-            <button class="btn btn-primary">Accept</button>
-            <button class="btn ">Reject</button>
+            <button class="btn btn-primary" [disabled]="user.requestSent" (click)="sendFriendRequest(user.id)">
+              <ng-container *ngIf="!user.requestSent">Send request</ng-container>
+              <ng-container *ngIf="user.requestSent">Request sent</ng-container>
+            </button>
           </div>
         </div>
       </div>
