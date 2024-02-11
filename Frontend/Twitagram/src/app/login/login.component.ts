@@ -14,7 +14,11 @@ export class LoginComponent {
     password: '',
   };
 
-  constructor(private apiService: ApiService, private router: Router, private toastr: ToastrService) {}
+  currentUser: any;
+
+  constructor(private apiService: ApiService, private router: Router, private toastr: ToastrService) {
+
+  }
 
   onLogin() {
     this.apiService.login(this.user).subscribe(
@@ -22,16 +26,25 @@ export class LoginComponent {
         console.log(data);
         localStorage.setItem('token', data.access);
         localStorage.setItem('username', data.username);
-        // this.toastr.success('Login Successful - Redirecting to feed!');
-        alert('Login Successful - Redirecting to feed!');
+
+        this.apiService.getUserProfile(data.username).subscribe((data: any) => {
+          console.log("User id : " + JSON.stringify(data.id));
+          localStorage.setItem('currentUserId', JSON.stringify(data.id));
+
+        })
+
+        this.toastr.success('Login Successful - Redirecting to feed!');
         this.router.navigate(['/posts/feed']);
+        
       },
-      (error: any) => console.error(error)
-    );
+      (error: any) => {
+        console.error(error);
+        this.toastr.error('Login Failed !');
+        this.user.username = '';
+        this.user.password = '';
+      });
 
-    
+
   };
-  passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z]).{5,20}$/;
 
-  
 }
