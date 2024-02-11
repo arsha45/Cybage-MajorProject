@@ -48,12 +48,12 @@
         </a>
 
 
-        <a class="menu-item" *ngIf="!authService.isLoggedIn()" routerLink="/login">
+        <a class="menu-item" *ngIf="!authService.isLoggedIn()" routerLink="/login" routerLinkActive="active">
           <span><i class="fa fa-sign-in"></i></span>
           <h3>Login</h3>
         </a>
 
-        <a class="menu-item" *ngIf="!authService.isLoggedIn()" routerLink="/register">
+        <a class="menu-item" *ngIf="!authService.isLoggedIn()" routerLink="/register" routerLinkActive="active">
           <span><i class="fa fa-user-plus"></i></span>
           <h3>Register</h3>
         </a>
