@@ -16,7 +16,7 @@ input {
     width: 100%;
     max-width: 300px;
     transition: all 0.2s ease-in-out;
-    margin-left:70px;
+
 }
 
 button {
@@ -51,7 +51,7 @@ button:hover {
     font-size: 22px;
     font-weight: 600;
     color: #333;
-    margin-left: 175px;
+  
   }
   .wrapper h2::before{
     content: '';

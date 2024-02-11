@@ -1,0 +1,21 @@
+
+
+<div class="friend-requests">
+    <h4>Friend Requests</h4>
+    <div class="request" *ngFor="let request of userData">
+      <div class="info">
+        <div class="profile-photo">
+          <img src="../../assets/images/profile-{{ request.id }}.jpg" alt="">
+        </div>
+        <div>
+          <h5>{{ request.username }}</h5>
+
+        </div>
+
+      </div>
+      <div class="action">
+        <button class="btn btn-Accept" (click)="acceptFriendRequest(request.id)">Accept</button>
+        <button class="btn btn-Reject" (click)="rejectFriendRequest(request.id)">Reject</button>
+      </div>
+    </div>
+  </div>

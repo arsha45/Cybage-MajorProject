@@ -1,0 +1,37 @@
+.friend-requests{
+    margin-top: 1rem;
+}
+
+.friend-requests h4{
+     color: var(--color-gray);
+     margin: 1rem 0;
+}
+
+.request{
+    display: flex;
+    justify-content: space-between;
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: 0.7rem;
+    margin-bottom: 0.8rem;
+
+}
+
+.request .info{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.request .action{
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-Accept{
+    background-color: #B7E5B4;
+}
+
+.btn-Reject{
+    background-color: #FF8080;
+}

@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 # Create your models here.
 
 class CustomUser(AbstractUser):
+    is_active = models.BooleanField(default=False)
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
@@ -57,3 +58,37 @@ class Follower(models.Model):
     def __str__(self):
         return f"{self.follower}"
 
+class FriendRequest(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+    )
+    from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_requests')
+    to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='received_requests')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  # pending, accepted, rejected
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def accept(self):
+        if self.status == 'accepted':
+            # Check if a friend relationship already exists
+            if not Friend.objects.filter(user=self.from_user, friend=self.to_user).exists():
+                # Create Friend objects for both users
+                friend1 = Friend.objects.create(user=self.from_user, friend=self.to_user)
+                friend2 = Friend.objects.create(user=self.to_user, friend=self.from_user)
+
+                # Update friend lists for both users
+                self.from_user.friends.add(self.to_user)
+                self.to_user.friends.add(self.from_user)
+
+
+    def __str__(self):
+        return f"{self.from_user}"
+
+class Friend(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    friend = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='friends')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'friend')
