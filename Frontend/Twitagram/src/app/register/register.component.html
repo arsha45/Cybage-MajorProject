@@ -11,14 +11,12 @@
             placeholder="Enter your username" 
             ngModel
             #username="ngModel"
-            minlength="4"
-            maxlength="10"
             required>
           </div>
 
-        <p class="invalid-input">
+        <!-- <p class="invalid-input">
             <span *ngIf="username.invalid && (username.touched || registerForm.submitted)">Please enter a valid Username</span>
-        </p>
+        </p> -->
 
           <div class="input-box">
             <input type="text"
@@ -27,17 +25,15 @@
               placeholder="Enter your email"
               ngModel
               #password="ngModel"
-              [pattern]="emailPattern"
-              minlength="5"
-              maxlength="20"
+             
               required>
           </div>
 
-          <p class="invalid-input">
+          <!-- <p class="invalid-input">
             <span *ngIf="password.invalid && (password.touched || registerForm.submitted)">
                 Email: 1-num, 1-special char, 1-uppercase, 5-20 characters, gamil.com.
             </span>
-        </p>
+          </p> -->
 
 
 
@@ -48,17 +44,15 @@
             placeholder="Create password" 
             ngModel
             #password="ngModel"
-            [pattern]="passwordPattern"
-            minlength="5"
-            maxlength="20"
+            
             required>
           </div>
 
-          <p class="invalid-input">
+          <!-- <p class="invalid-input">
             <span *ngIf="password.invalid && (password.touched || registerForm.submitted)">
                 Password: 1-num, 1-special char, 1-uppercase, 5-20 characters.
             </span>
-        </p>
+          </p> -->
 
           <div class="input-box">
             <input type="password" 
