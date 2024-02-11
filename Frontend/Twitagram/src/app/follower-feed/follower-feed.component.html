@@ -1,8 +1,4 @@
 
-
-
-<!-- arsh -->
-
 <div
   style="margin-bottom: 1rem"
   class=""
@@ -37,7 +33,7 @@
       <div class="content">
         <div class="container">
           <h2>
-            <a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a>
+            <a>{{ post.title }}</a>
           </h2>
           <p>{{ post.content }}</p>
 
@@ -91,24 +87,6 @@
           </div>
     </div>
 
-      <!-- <div class="controls">
-        <div class="btn">
-          <i class="fa-regular fa-comment"></i>
-          <span>100k</span>
-        </div>
-        <div class="btn">
-          <i class="fa-solid fa-retweet"></i>
-          <span>10k</span>
-        </div>
-        <div class="btn" (click)="likeOrUnlikePost(post)">
-          <input type="checkbox" name="" id="like" />
-          <label for="like"></label>
-          <span>{{ post.likes_count }}</span>
-        </div>
-        <div class="btn">
-          <i class="fa-solid fa-arrow-up-from-bracket"></i>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>
