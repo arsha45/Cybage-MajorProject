@@ -1,5 +1,4 @@
 
-
     <div class="wrapper">
         <h2>Registration</h2>
         <form action="#" (submit)="onsubmit()" #registerForm="ngForm">
@@ -67,20 +66,16 @@
             required>
           </div>
 
-          <p class="invalid-input">
+          <!-- <p class="invalid-input">
             <span *ngIf="(passwordConfirmation.invalid || user.password !== user.password2) && (passwordConfirmation.touched || registerForm.submitted)">
                 Passwords do not match.
             </span>
-        </p>
+          </p> -->
           
             <input [disabled]="registerForm.invalid" type="Submit" value="Register Now" class="btn btn-primary">
           
           <div class="text">
-<<<<<<< HEAD
-            <h3>Already have an account? <a  routerLink="/login">Login now</a></h3>
-=======
-            <h3>Already have an account? <a routerLink="/login/">Login now</a></h3>
->>>>>>> origin/main
+            <h3>Already have an account? <a routerLink="/login">Login now</a></h3>
           </div>
         </form>
       </div>
