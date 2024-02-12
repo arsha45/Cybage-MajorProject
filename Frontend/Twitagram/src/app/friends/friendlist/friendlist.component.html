@@ -1,11 +1,14 @@
-  <div class="friend-list">
-    <h4>Friends List</h4>
-    <div class="friend" *ngFor="let friend of friendList">
-      <div class="friend-info">
-        <span>{{ friend.friend }}</span>
+
+  <div class="friend-requests">
+    <h4>Friend List</h4>
+    <div class="request" *ngFor="let friend of friendList">
+      <div class="info">
+        <div>
+          <h3>{{ friend.friend }}</h3>
+        </div>
       </div>
-      <div class="friend-actions">
-        <button class="unfriend-button" (click)="unfriendByUsername(friend.friend)">Unfriend</button>
+      <div class="action">
+        <button class="btn btn-Reject" (click)="unfriendByUsername(friend.friend)">Unfriend</button>
       </div>
     </div>
   </div>
