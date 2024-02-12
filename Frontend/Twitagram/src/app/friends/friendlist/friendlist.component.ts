@@ -30,6 +30,7 @@ export class FriendlistComponent implements OnInit {
         () => {
           console.log('Friend unfriended successfully');
           this.friendList = this.friendList.filter(friend => friend !== friendUsername);
+          this.getFriendList();
         },
         (error: any) => {
           console.error('Error unfriending friend:', error);

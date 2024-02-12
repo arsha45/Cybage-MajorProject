@@ -17,6 +17,7 @@ nav .search-bar{
     background: var(--color-light);
     border-radius: var(--border-radius);
     padding: var(--search-padding);
+    opacity: 0;
 }
 
 nav .search-bar input[type="search"]{
