@@ -14,7 +14,7 @@ from rest_framework.exceptions import ValidationError
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
 from .models import Post, Like, Comment, Follower, FriendRequest, Friend, CustomUser
-from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer, UserProfileSerializer, AllUsersSerializer,FriendRequestSerializer, FriendSerializer
+from .serializers import ReportSerializer, UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer, UserProfileSerializer, AllUsersSerializer,FriendRequestSerializer, FriendSerializer
 
 User = get_user_model()
 
@@ -356,3 +356,24 @@ class UnfriendAPIView(APIView):
         ).delete()
 
         return Response({'message': 'Friend unfriended successfully'}, status=status.HTTP_200_OK)
+
+
+class ReportPostView(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        content = request.data.get('content')
+        reason = request.data.get('reason')
+        postUser = request.data.get('postUser')
+         
+
+        # Validate input data
+        if not all([username, content, reason, postUser]):
+            return Response({'error': 'Incomplete data provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Save reported post
+        report_data = {'username': username, 'content': content, 'reason': reason, 'postUser':postUser }
+        serializer = ReportSerializer(data=report_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

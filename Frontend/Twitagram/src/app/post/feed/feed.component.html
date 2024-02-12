@@ -1,6 +1,7 @@
 
 <!-- Feed Section -->
 <div style="margin-bottom: 1rem" class="" *ngFor="let post of posts.slice().reverse()">
+  <div *ngIf="!reportedPosts.has(post.content)">
   <div class="center">
     <!-- <input type="checkbox" name="" id="toggle" /> -->
     <!-- <label for="toggle"></label> -->
@@ -60,8 +61,20 @@
         <div class="btn">
           <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </div>
+
+         <div class="btn">
+          <div *ngIf="post.user !== authService.getUser().username" (click)="promptReason( post.content, post.user)">
+          <i class="fa fa-flag"></i>
+          </div>
+        </div>
+
+         <!-- <div class="btn">
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </div> -->
       </div>
+      
 
     </div>
   </div>
+</div>
 </div>
