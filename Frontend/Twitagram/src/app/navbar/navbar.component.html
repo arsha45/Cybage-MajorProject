@@ -10,9 +10,11 @@
       <input type="search" placeholder="search anything" />
     </div>
     <div class="create">
-      <label class="btn btn-primary" for="create-post">Create</label>
+      <label class="btn btn-primary" for="create-post" routerLink="/posts/create" routerLinkActive="active"
+      *ngIf="authService.isLoggedIn()">Create</label>
       <div class="profile-photo">
-        <img src="../../assets/images/profile-1.jpg" alt="" />
+        <img src="../../assets/images/profile-1.jpg" alt="" *ngIf="authService.isLoggedIn()"
+        routerLink="/users/{{ authService.getUser().username }}/profile"/>
       </div>
     </div>
   </div>
