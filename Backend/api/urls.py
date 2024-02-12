@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import UserRegistrationAPIView, CustomTokenObtainPairView, AllUsersView,FriendRequestListCreateAPIView, FriendRequestRetrieveUpdateDestroyAPIView,FriendListCreateAPIView, FriendRetrieveUpdateDestroyAPIView, PendingFriendRequestListAPIView,AcceptFriendRequest, FriendListAPIView, RejectFriendRequest, UnfriendAPIView
+from .views import ReportPostView, UserRegistrationAPIView, CustomTokenObtainPairView, AllUsersView,FriendRequestListCreateAPIView, FriendRequestRetrieveUpdateDestroyAPIView,FriendListCreateAPIView, FriendRetrieveUpdateDestroyAPIView, PendingFriendRequestListAPIView,AcceptFriendRequest, FriendListAPIView, RejectFriendRequest, UnfriendAPIView
 from rest_framework_simplejwt.views import TokenRefreshView
 from . import views
 from rest_framework.routers import DefaultRouter
@@ -16,6 +16,7 @@ urlpatterns = [
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include(router.urls)),
 
+    path('report-post/', ReportPostView.as_view(), name='report_post'),
     path('friend-requests/', FriendRequestListCreateAPIView.as_view(), name='friend_request_list_create'),
     path('friend-requests/<int:pk>/', FriendRequestRetrieveUpdateDestroyAPIView.as_view(), name='friend_request_detail'),
     path('friends/', FriendListCreateAPIView.as_view(), name='friend_list_create'),

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Follower, Like, Post, Comment,FriendRequest, Friend
+from .models import CustomUser, Follower, Like, Post, Comment,FriendRequest, Friend, ReportedPost
 
 # Register your models here.
 class UserAdminView(admin.ModelAdmin):
@@ -56,6 +56,9 @@ class FriendAdminView(admin.ModelAdmin):
 admin.site.register(Friend, FriendAdminView)
 
 
+class ReportAdminView(admin.ModelAdmin):
+    list_display = ['username','postUser','content','reason']
+admin.site.register(ReportedPost, ReportAdminView)
 
 
 admin.site.site_header = "Social Media"  

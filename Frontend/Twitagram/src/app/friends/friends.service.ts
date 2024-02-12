@@ -42,6 +42,9 @@ export class FriendsService {
     return this.http.post<any>(url, { friend_username: friendUsername });
   }
 
- 
+  reportPost(username: string, content: string, reason: string,postUser: string): Observable<any> {
+    const reportData = { username, content, reason, postUser};
+    return this.http.post<any>(`${this.apiUrl}/report-post/`, reportData);
+  }
 
 }

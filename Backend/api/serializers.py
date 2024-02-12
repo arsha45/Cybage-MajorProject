@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Post, Like, Comment, CustomUser, Follower, FriendRequest, Friend
+from .models import Post, Like, Comment, CustomUser, Follower, FriendRequest, Friend, ReportedPost
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -102,3 +102,9 @@ class FriendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend
         fields = ['id', 'user', 'friend', 'created_at']
+
+
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReportedPost
+        fields = ['username', 'content', 'reason','postUser']
