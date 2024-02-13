@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post/post.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { FriendsService } from '../friends/friends.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class FollowerFeedComponent implements OnInit {
 
   constructor(private postService: PostService,
               private router: Router        ,
-              public authService: AuthService  
+              public authService: AuthService ,
+              private _report: FriendsService 
     ) {}
 
   ngOnInit(): void {
@@ -121,6 +123,32 @@ export class FollowerFeedComponent implements OnInit {
       return false;
     }
     return this.following.some(follower => follower.username === user);
+  }
+
+  reportedPosts: Set<string> = new Set<string>();
+
+  promptReason(postContent: string,postUser: string): void {
+    const reason = prompt('Please provide a reason for reporting this post:');
+    if (reason) {
+      this.reportPost(this.currentUser.username, postContent, reason, postUser); // Report the post
+    } else {
+      console.log('Report canceled or reason not provided.');
+      alert('Please provide reason')
+    }
+  }
+
+  reportPost(username: string, content: string, reason: string,postUser: string): void {
+    this._report.reportPost(username, content, reason, postUser).subscribe(
+      response => {
+        console.log('Post reported successfully!', response);
+        alert(`You reported on ${response.postUser}'s post. It will be removed from your feed!`)
+        this.reportedPosts.add(response.content);
+        console.log(response.content) 
+      },
+      error => {
+        console.error('Error reporting post', error);
+      }
+    );
   }
 
 }

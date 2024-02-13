@@ -19,7 +19,7 @@ export class FeedComponent implements OnInit {
   constructor(private postService: PostService,
               private router: Router        ,
               public authService: AuthService,
-              private _report: FriendsService ,  
+              private _report: FriendsService 
     ) {}
 
   ngOnInit(): void {

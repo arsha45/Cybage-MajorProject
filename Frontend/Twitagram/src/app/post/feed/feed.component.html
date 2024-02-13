@@ -1,80 +1,79 @@
-
 <!-- Feed Section -->
 <div style="margin-bottom: 1rem" class="" *ngFor="let post of posts.slice().reverse()">
   <div *ngIf="!reportedPosts.has(post.content)">
-  <div class="center">
-    <!-- <input type="checkbox" name="" id="toggle" /> -->
-    <!-- <label for="toggle"></label> -->
-    <div class="tweet">
-      <div class="head">
-        <!-- <div class="image"></div> -->
-        <div class="name">
-          <div class="username">
+    <div class="center">
+      <!-- <input type="checkbox" name="" id="toggle" /> -->
+      <!-- <label for="toggle"></label> -->
+      <div class="tweet">
+        <div class="head">
+          <!-- <div class="image"></div> -->
+          <div class="name">
+            <div class="username">
+              <p>
+                <a><strong>{{ post.user }}:</strong></a>
+              </p>
+              <!-- {{post.user}} -->
+            </div>
+          </div>
+
+          <span class="material-symbols-outlined follow-btn" *ngIf="post.user !== authService.getUser().username"
+            (click)="followOrUnfollowUser(post.user)">
+            {{ isFollowing(post.user) ? "person_off" : "person_add" }}
+          </span>
+        </div>
+
+        <div class="content">
+          <div class="container">
+            <h2>
+              <a>{{ post.title }}</a>
+            </h2>
+            <p>{{ post.content }}</p>
+
+            <div class="date">{{ post.date_posted | date : "mediumDate" }}</div>
+            <div class="editDeleteBtn">
+              <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
+              <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="comment-feed" *ngIf="post.comments && post.comments.length">
+          <h4>Comments :</h4>
+          <div class="comment" *ngFor="let comment of post.comments">
             <p>
-              <a ><strong>{{ post.user }}:</strong></a>
+              <strong>@{{ comment.user }}:</strong> {{ comment.content }}
             </p>
-            <!-- {{post.user}} -->
+            <p>{{ comment.created_at }}</p>
           </div>
         </div>
+        <div class="create-post">
+          <input type="text" placeholder="Add a Comment!!" [(ngModel)]="post.newComment" />
+          <input type="submit" value="Comment" class="btn btn-primary" (click)="addComment(post)" />
+        </div>
 
-        <span class="material-symbols-outlined follow-btn" *ngIf="post.user !== authService.getUser().username"
-          (click)="followOrUnfollowUser(post.user)">
-          {{ isFollowing(post.user) ? "person_off" : "person_add" }}
-        </span>
-      </div>
-
-      <div class="content">
-        <div class="container">
-          <h2>
-            <a>{{ post.title }}</a>
-          </h2>
-          <p>{{ post.content }}</p>
-
-          <div class="date">{{ post.date_posted | date : "mediumDate" }}</div>
-          <div class="editDeleteBtn">
-            <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
-            <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</a>
+        <div class="controls">
+          <div class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
+            heart_plus
           </div>
-        </div>
-      </div>
+          {{ post.likes_count}}
 
-      <div class="comment-feed" *ngIf="post.comments && post.comments.length">
-        <h4>Comments :</h4>
-        <div class="comment" *ngFor="let comment of post.comments">
-          <p>
-            <strong>@{{ comment.user }}:</strong> {{ comment.content }}
-          </p>
-          <p>{{ comment.created_at }}</p>
-        </div>
-      </div>
-      <div class="create-post">
-        <input type="text" placeholder="Add a Comment!!" [(ngModel)]="post.newComment" />
-        <input type="submit" value="Comment" class="btn btn-primary" (click)="addComment(post)" />
-      </div>
-
-      <div class="controls">
-        <div class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
-          heart_plus
-        </div>
-        {{ post.likes_count}}
-
-        <div class="btn">
-          <i class="fa-solid fa-arrow-up-from-bracket"></i>
-        </div>
-
-         <div class="btn">
-          <div *ngIf="post.user !== authService.getUser().username" (click)="promptReason( post.content, post.user)">
-          <i class="fa fa-flag"></i>
+          <div class="btn">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
           </div>
-        </div>
 
-         <!-- <div class="btn">
+          <div class="btn">
+            <div *ngIf="post.user !== authService.getUser().username" (click)="promptReason( post.content, post.user)">
+              <i class="fa fa-flag"></i>
+            </div>
+          </div>
+
+          <!-- <div class="btn">
           <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </div> -->
-      </div>
-      
+        </div>
 
+
+      </div>
     </div>
   </div>
-</div>
 </div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { FriendsService } from '../friends/friends.service';
+import { PostService } from '../post/post.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class HomeComponent {
   errorMessage: string = '';
   currentUserName = localStorage.getItem('username')
 
-  constructor(public authService: AuthService, private userService: FriendsService) {
+  constructor( public authService: AuthService, private userService: FriendsService) {
     this.currentUserId = parseInt(localStorage.getItem('currentUserId') || '0');
   }
 
@@ -50,15 +51,21 @@ export class HomeComponent {
       this.userService.sendFriendRequest(this.currentUserId, toUserId).subscribe(
         (response: any) => {
           console.log('Friend request sent successfully', response);
-          alert(`Friend request has been send`)
-          this.users[userIndex].requestSent = true; 
+          alert(`Friend request has been sent`);
+          this.users[userIndex].requestSent = true; // Update requestSent property
+          // Remove the user from the list after sending the friend request
+          this.users.splice(userIndex, 1);
         },
         (error: any) => {
           console.error('Error sending friend request', error);
+          // Handle error
         }
       );
     } else {
       console.log('Friend request already sent or invalid user');
+      // Show an alert or handle the scenario where the request has already been sent
     }
   }
+  
+
 }

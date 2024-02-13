@@ -14,7 +14,7 @@
 
       </div>
       <div class="action">
-        <button class="btn btn-Accept" (click)="acceptFriendRequest(request.id)">Accept</button>
+        <button class="btn btn-Accept" (click)="acceptFriendRequest(request.id); followOrUnfollowUser(request.username)">Accept</button>
         <button class="btn btn-Reject" (click)="rejectFriendRequest(request.id)">Reject</button>
       </div>
     </div>

@@ -63,7 +63,7 @@ export class CreateComponent implements OnInit {
         
         (response) => {
           alert('Post Created! Redirecting to feed.');
-          this.router.navigate(['/posts/feed']) // redirect to posts/feed
+          this.router.navigate(['users/:username/feed/']) 
         },
         (error) => {
           if (error.status === 401) {

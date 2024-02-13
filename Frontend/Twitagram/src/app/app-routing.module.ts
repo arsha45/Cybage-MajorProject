@@ -13,7 +13,7 @@ import { FriendlistComponent } from './friends/friendlist/friendlist.component';
 const routes: Routes = [
   { path: '',component: LoginComponent ,pathMatch: 'full' },
   { path: 'home',component: HomeComponent, children: [
-    { path: 'feed', component: FeedComponent }
+    { path: 'feed', component: FeedComponent, }
     
   ] },
   { path: 'posts', loadChildren: () => import('./post/post.module').then(m => m.PostModule) },
