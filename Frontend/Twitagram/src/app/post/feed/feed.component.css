@@ -198,3 +198,6 @@
   .comment-feed h4{
     margin: 10px 0;
   }
+  .follow-btn{
+    display: none;
+  }

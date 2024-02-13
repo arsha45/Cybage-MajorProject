@@ -90,7 +90,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def user_feed(self, request, *args, **kwargs):
         user = self.get_object()
         following = [f.following for f in user.following.all()]
-        posts = Post.objects.filter(user__in=following)
+        posts = Post.objects.filter(Q(user=user) | Q(user__in=following))
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     

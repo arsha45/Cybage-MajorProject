@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendsService } from '../friends.service';
+import { PostService } from 'src/app/post/post.service';
 
 @Component({
   selector: 'app-friendlist',
@@ -9,7 +10,7 @@ import { FriendsService } from '../friends.service';
 export class FriendlistComponent implements OnInit {
   friendList: any[] = [];
 
-  constructor(private friendService: FriendsService) { }
+  constructor(private postService: PostService,private friendService: FriendsService) { }
 
   ngOnInit(): void {
     this.getFriendList();
@@ -39,6 +40,18 @@ export class FriendlistComponent implements OnInit {
     } else {
       console.log('Unfriend operation cancelled');
     }
+  }
+
+  followOrUnfollowUser(post: any): void {
+    this.postService.followUser(post).subscribe(
+      (data) => {
+        console.log('(Un)Follow operation successful:', data);
+        this.ngOnInit();
+    },
+      (error) => {
+        console.error('There was an error following the user:', error);
+      }
+    );
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FriendsService } from '../friends.service';
+import { PostService } from 'src/app/post/post.service';
 
 @Component({
   selector: 'app-friend-requests',
@@ -12,7 +13,7 @@ export class FriendRequestsComponent implements OnInit {
   userData: any[] = [];
   currentUserId: number = parseInt(localStorage.getItem('currentUserId') || '0');
 
-  constructor(private friendService: FriendsService, private router:Router) { }
+  constructor(private postService: PostService , private friendService: FriendsService, private router:Router) { }
 
   ngOnInit(): void {
     this.getPendingRequests();
@@ -62,6 +63,19 @@ export class FriendRequestsComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error rejecting friend request:', error);
+      }
+    );
+  }
+
+  
+  followOrUnfollowUser(post: any): void {
+    this.postService.followUser(post).subscribe(
+      (data) => {
+        console.log('(Un)Follow operation successful:', data);
+        this.ngOnInit();
+    },
+      (error) => {
+        console.error('There was an error following the user:', error);
       }
     );
   }

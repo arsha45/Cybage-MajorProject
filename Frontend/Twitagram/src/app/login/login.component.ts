@@ -34,7 +34,7 @@ export class LoginComponent {
         })
 
         this.toastr.success('Login Successful - Redirecting to feed!');
-        this.router.navigate(['/posts/feed']);
+        this.router.navigate(['users/:username/feed/']);
         
       },
       (error: any) => {
