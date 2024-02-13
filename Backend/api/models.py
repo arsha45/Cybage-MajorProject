@@ -21,6 +21,7 @@ class Post(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField()
+    media = models.FileField(upload_to='post_media/', blank=True, null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     likes_count = models.PositiveIntegerField(default=0)
 

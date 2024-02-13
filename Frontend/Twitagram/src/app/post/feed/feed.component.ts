@@ -43,6 +43,18 @@ export class FeedComponent implements OnInit {
         };
         }
     );
+
+    
+  }
+   // Add these helper methods in your component class
+   isImage(mediaUrl: string): boolean {
+    // Check if the URL ends with a common image extension
+    return /\.(jpg|jpeg|png|gif)$/i.test(mediaUrl);
+  }
+
+  isAudio(mediaUrl: string): boolean {
+    // Check if the URL ends with a common audio extension
+    return /\.(mp3|ogg|wav)$/i.test(mediaUrl);
   }
 
   deletePost(post: any): void {

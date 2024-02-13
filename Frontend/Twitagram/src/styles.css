@@ -176,6 +176,10 @@ img{
     margin-top: -5px;
 }
 
+button,a{
+    cursor: pointer;
+}
+
 
 /* Media Queries Making it responsive */
 

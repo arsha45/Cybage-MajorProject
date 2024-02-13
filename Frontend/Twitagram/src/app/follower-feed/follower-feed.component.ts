@@ -3,6 +3,7 @@ import { PostService } from '../post/post.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { FriendsService } from '../friends/friends.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class FollowerFeedComponent implements OnInit {
   constructor(private postService: PostService,
               private router: Router        ,
               public authService: AuthService ,
-              private _report: FriendsService 
+              private _report: FriendsService,
+              private toaster:ToastrService 
     ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,25 @@ export class FollowerFeedComponent implements OnInit {
         }
     );
   }
+
+  getCompleteImageUrl(relativePath: string): string {
+    // Assuming relativePath is the path obtained from post.media
+    return `http://localhost:8000${relativePath}`;
+  }
+    // Add these helper methods in your component class
+    isImage(mediaUrl: string): boolean {
+      // Check if the URL ends with a common image extension
+      return /\.(jpg|jpeg|png|gif)$/i.test(mediaUrl);
+    }
+  
+    isAudio(mediaUrl: string): boolean {
+      // Check if the URL ends with a common audio extension
+      return /\.(mp3|ogg|wav)$/i.test(mediaUrl);
+    }
+    isVideo(mediaUrl: string): boolean {
+      // Check if the URL ends with a common video extension
+      return /\.(mp4|webm|mkv)$/i.test(mediaUrl);
+    }
 
   deletePost(post: any): void {
     if (!confirm('Are you sure you want to delete this post?')) {
@@ -141,14 +162,17 @@ export class FollowerFeedComponent implements OnInit {
     this._report.reportPost(username, content, reason, postUser).subscribe(
       response => {
         console.log('Post reported successfully!', response);
-        alert(`You reported on ${response.postUser}'s post. It will be removed from your feed!`)
+        this.toaster.success(`You reported on ${response.postUser}'s post. It will be removed from your feed!`)
         this.reportedPosts.add(response.content);
-        console.log(response.content) 
+        // console.log(response.content) 
       },
       error => {
-        console.error('Error reporting post', error);
+        // console.error('Error reporting post', error);
+        this.toaster.error(`Error reporting post`, error)
       }
     );
   }
+
+ 
 
 }

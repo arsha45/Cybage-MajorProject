@@ -1,6 +1,11 @@
 <div class="create-form">
     <h1>Create a Post</h1>
-        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+
+        <div>
+            <label for="media">Upload Media:</label>
+            <input type="file" id="media" (change)="handleFileInput($event)">
+        </div>
         <div>
             <label for="title">Title:</label>
             <input type="text" id="title" formControlName="title" placeholder="A catchy title...">
@@ -14,10 +19,11 @@
             </div>        
         </div>
 
+        
+
         <div>
             <button type="submit" [disabled]="postForm.invalid">Create Post</button>
         </div>
 
         </form>
 </div>
-
