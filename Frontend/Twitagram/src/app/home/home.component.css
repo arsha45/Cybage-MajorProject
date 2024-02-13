@@ -1,13 +1,3 @@
-/* .home-container {
-    text-align: center;
-    margin-top: 50px;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    background-color: var(--color-200);
-} */
-
-/* Main section yt Arsh */
 
 main{
     position: relative;
@@ -151,7 +141,6 @@ main .container .left .profile{
 
 
 
-/* Making it responsive */
 @media screen and (max-width: 1200px) {
     .container{
         width: 96%;

@@ -83,28 +83,6 @@ export class CreateComponent implements OnInit {
       this.selectedMedia = files[0];
     }
   }
-
-  // createNewPost(): void {
-  //   if (this.postForm.valid) {
-  //     this.postService.createPost(this.postForm.value).subscribe(
-        
-  //       (response) => {
-  //         alert('Post Created! Redirecting to feed.');
-  //         this.router.navigate(['users/:username/feed/']) 
-  //       },
-  //       (error) => {
-  //         if (error.status === 401) {
-  //           alert('You must be logged in to create a post! Redirecting to login');
-  //           this.authService.logOut();
-  //           this.router.navigate(['/login']);
-  //         }
-  //         else {
-  //         console.error('There was an error while creating the post', error)
-  //       }
-  //     }
-  //     );
-  //   }
-  // }
   
 
   createNewPost(formData: FormData): void {
@@ -121,7 +99,7 @@ export class CreateComponent implements OnInit {
           // Log steps to check the navigation flow
           console.log('Redirecting to feed.');
           try {
-            this.router.navigate(['/posts/feed']); // Redirect to posts/feed
+            this.router.navigate(['users/:username/feed/']); // Redirect to posts/feed
           } catch (navigationError) {
             console.error('Navigation error:', navigationError);
           }
