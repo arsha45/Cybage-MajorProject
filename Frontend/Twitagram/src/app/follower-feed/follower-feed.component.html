@@ -1,17 +1,13 @@
-<div style="margin-bottom: 1rem" class="" *ngFor="let post of posts">
+<div style="margin-bottom: 1rem" class="" *ngFor="let post of posts.slice().reverse()">
   <div *ngIf="!reportedPosts.has(post.content)">
     <div class="center">
-      <!-- <input type="checkbox" name="" id="toggle" /> -->
-      <!-- <label for="toggle"></label> -->
       <div class="tweet">
         <div class="head">
-          <!-- <div class="image"></div> -->
           <div class="name">
             <div class="username">
               <p>
                 <a routerLink="/users/{{ post.user }}/profile"><strong>{{ post.user }}:</strong></a>
               </p>
-              <!-- {{post.user}} -->
             </div>
           </div>
 
@@ -23,15 +19,10 @@
 
         <div class="content">
           <div class="container">
-            <h2>
-              <a>{{ post.title }}</a>
-            </h2>
-            <!-- Display the uploaded image if available -->
-            <!-- <img *ngIf="post.media" [src]="post.media" alt="Uploaded Media" class="post-image"> -->
+
             <img *ngIf="isImage(post.media)" [src]="getCompleteImageUrl(post.media)" alt="Uploaded Image"
               class="post-image">
 
-            <!-- Display the audio player if available -->
             <audio *ngIf="isAudio(post.media)" controls>
               <source [src]="getCompleteImageUrl(post.media)" type="audio/mpeg">
               Your browser does not support the audio element.
@@ -42,6 +33,10 @@
               Your browser does not support the video element.
             </video>
 
+
+            <h2>
+              <a>{{ post.title }}</a>
+            </h2>
             <p>{{ post.content }}</p>
 
             <div class="date">{{ post.date_posted | date : "mediumDate" }}</div>
@@ -52,7 +47,7 @@
           </div>
         </div>
 
-        
+
         <div class="controls">
           <div class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
             heart_plus
@@ -70,7 +65,7 @@
           <input type="text" placeholder="Add a Comment!!" [(ngModel)]="post.newComment" />
           <input type="submit" value="Comment" class="btn btn-primary" (click)="addComment(post)" />
         </div>
-        
+
         <div class="comment-feed" *ngIf="post.comments && post.comments.length">
           <h4>Comments :</h4>
           <div class="comment" *ngFor="let comment of post.comments">

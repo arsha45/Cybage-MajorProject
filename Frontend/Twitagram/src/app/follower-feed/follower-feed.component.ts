@@ -41,7 +41,7 @@ export class FollowerFeedComponent implements OnInit {
         if (error.status === 401) {
           alert('You must be logged in to view this page.');
           this.authService.logOut();
-          // this.router.navigate(['/login']);
+          this.router.navigate(['/login']);
         } else { 
           console.error('Error fetching posts:', error);
         };
@@ -80,6 +80,7 @@ export class FollowerFeedComponent implements OnInit {
     this.postService.deletePost(post.id).subscribe(
       (data) => {
         console.log('Post deleted successfully:', data);
+        this.toaster.success('Post deleted successfully')
         this.ngOnInit();
       },
       (error) => {

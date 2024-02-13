@@ -62,7 +62,6 @@ button:hover {
 
 
 
-/* Styleing by Arsh yt */
 
 .create-post{
     width: 100%;
@@ -91,3 +90,17 @@ button:hover {
 
 
 
+
+@media screen and (max-width: 1200px) {
+    .create-form{
+        width: 90vw;
+    }
+}
+
+@media screen and (max-width:992px) {
+    
+    .create-form{
+        width: 70vw;
+    }
+
+}

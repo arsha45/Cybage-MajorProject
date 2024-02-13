@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FriendsService } from '../friends.service';
 import { PostService } from 'src/app/post/post.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-friend-requests',
@@ -13,7 +14,7 @@ export class FriendRequestsComponent implements OnInit {
   userData: any[] = [];
   currentUserId: number = parseInt(localStorage.getItem('currentUserId') || '0');
 
-  constructor(private postService: PostService , private friendService: FriendsService, private router:Router) { }
+  constructor(private postService: PostService , private friendService: FriendsService, private router:Router, private toaster: ToastrService) { }
 
   ngOnInit(): void {
     this.getPendingRequests();
@@ -44,13 +45,11 @@ export class FriendRequestsComponent implements OnInit {
   acceptFriendRequest(fromUserId: number): void {
     this.friendService.acceptFriendRequest(fromUserId).subscribe(
       (friend: any) => {
-        alert(`You accept the friend request`)
-        console.log('Friend request accepted:', friend);
+        this.toaster.success(`You accept the friend request`)
         this.router.navigate(['/friend-list'])
       },
       (error: any) => {
-        console.error('Error accepting friend request:', error);
-
+        this.toaster.error('Error accepting friend request:', error)
       }
     );
   }
@@ -58,11 +57,11 @@ export class FriendRequestsComponent implements OnInit {
   rejectFriendRequest(fromUserId: number): void {
     this.friendService.rejectFriendRequest(fromUserId).subscribe(
       () => {
-        alert(`You rejected the friend request`)
-        console.log('Friend request rejected successfully');
+        
+        this.toaster.success(`You rejected the friend request`)
       },
       (error: any) => {
-        console.error('Error rejecting friend request:', error);
+        this.toaster.error('Error rejecting friend request:', error)
       }
     );
   }

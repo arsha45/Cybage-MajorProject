@@ -26,7 +26,6 @@ button:hover {
 } 
 
 
-/* Arsh */
 
 
 
@@ -111,4 +110,19 @@ button:hover {
 .lower-container .search-bar textarea,input{
     border-radius: var(--border-radius);
     padding: var(--search-padding);
+}
+
+
+@media screen and (max-width: 1200px) {
+  .card-container{
+      width: 90vw;
+  }
+}
+
+@media screen and (max-width:992px) {
+  
+  .card-container{
+      width: 70vw;
+  }
+
 }
