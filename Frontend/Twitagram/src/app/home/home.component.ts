@@ -21,8 +21,10 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    console.log("Load user constructor");
-    this.loadUsers();
+    if (this.authService.isLoggedIn()) {
+      this.currentUserId = parseInt(localStorage.getItem('currentUserId') || '0');
+      this.loadUsers();
+    } 
   }
 
   

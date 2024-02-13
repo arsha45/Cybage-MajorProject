@@ -57,7 +57,7 @@
         {{ post.likes_count}}
 
         <div class="btn">
-          <div  (click)="promptReason( post.content, post.user) " *ngIf="post.user === authService.getUser().username">
+          <div  (click)="promptReason( post.content, post.user) " *ngIf="post.user !== authService.getUser().username">
           <i class="fa-solid fa-arrow-up-from-bracket"></i>
         </div>
         </div>
