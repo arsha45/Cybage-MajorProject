@@ -32,7 +32,7 @@ class UserAdminView(admin.ModelAdmin):
 admin.site.register(CustomUser, UserAdminView)
 
 class PostAdminView(admin.ModelAdmin):
-    list_display = ['user', 'title', 'content']
+    list_display = ['user', 'title', 'content','media']
 admin.site.register(Post, PostAdminView)
 
 class CommentAdminView(admin.ModelAdmin):

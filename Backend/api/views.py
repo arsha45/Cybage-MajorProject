@@ -131,7 +131,7 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user, media=self.request.data.get('media'))
 
     # Post Actions
     @action(detail=True, methods=['PUT'], url_path='edit', url_name='edit_post')

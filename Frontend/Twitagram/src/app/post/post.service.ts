@@ -18,12 +18,12 @@ export class PostService {
     return this.http.get(`${this.API_URL}/posts/${id}/`);
   }
 
-  createPost(postData: any): Observable<any> {
-    return this.http.post(`${this.API_URL}/posts/`, postData);
+  createPost(formData: FormData): Observable<any> {
+    return this.http.post(`${this.API_URL}/posts/`, formData);
   }
 
-  updatePost(id: number, postData: any): Observable<any> {
-    return this.http.put(`${this.API_URL}/posts/${id}/`, postData);
+  updatePost(id: number, formData: FormData): Observable<any> {
+    return this.http.put(`${this.API_URL}/posts/${id}/`, formData);
   }
 
   deletePost(id: number): Observable<any> {

@@ -4,7 +4,6 @@
     /* max-width: 600px; */
     padding: 0 20px;
     margin: 10px;
-    border: 2px solid #ccc;
     background-color: var(--color-200);
     border-radius: 5px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
@@ -46,7 +45,6 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
-    border: 2px solid var(--color-500);
 }
 
 .post-content a {
@@ -218,7 +216,7 @@
   .controls {
     width: 100%;
     display: flex;
-    /* margin-top: 20px; */
+    margin-top: 1rem;
     align-items: center;
     justify-content: left;
     color: var(--teritiary);
@@ -334,4 +332,9 @@
 
 .follow-btn{
   display: none;
+}
+
+video{
+  width: 100%;
+  height: fit-content;
 }
