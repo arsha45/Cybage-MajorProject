@@ -51,7 +51,7 @@
         </ng-template>
     </div>
   <div class="lower-container">
-      <div>
+      <div *ngIf="currentUser && userProfile && currentUser.username === userProfile.username">
         <button class="btn"
         (click)="toggleEditMode()">Edit Profile</button>
       </div>

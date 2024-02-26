@@ -45,6 +45,7 @@ button:hover {
     padding: 34px;
     border-radius: var(--border-radius);
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    margin-top:2rem;
   }
   .wrapper h2{
     position: relative;

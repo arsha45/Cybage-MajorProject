@@ -41,7 +41,7 @@
 
             <div class="date">{{ post.date_posted | date : "mediumDate" }}</div>
             <div class="editDeleteBtn">
-              <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
+              <!-- <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a> -->
               <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</a>
             </div>
           </div>

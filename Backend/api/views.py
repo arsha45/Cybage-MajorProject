@@ -15,7 +15,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
 from .models import Post, Like, Comment, Follower, FriendRequest, Friend, CustomUser
 from .serializers import ReportSerializer, UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer, UserProfileSerializer, AllUsersSerializer,FriendRequestSerializer, FriendSerializer
-
 User = get_user_model()
 
 
